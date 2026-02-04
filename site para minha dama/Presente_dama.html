@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para o Amor da Minha Vida ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#ffc0cb;
+    font-family: Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    width:90vw;
+    max-width:350px;
+    z-index:2;
+}
+
+/* CARROSSEL */
+.carrossel{
+    position:relative;
+    width:100%;
+}
+
+.carrossel img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:20px;
+    border:6px solid #ff4d88;
+    animation: brilho 2s infinite alternate;
+    cursor:pointer;
+}
+
+@keyframes brilho{
+    from{ box-shadow:0 0 15px #ff4d88; }
+    to{ box-shadow:0 0 40px #ff1a75; }
+}
+
+/* Setas */
+.seta{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,0.6);
+    border:none;
+    font-size:25px;
+    padding:8px 12px;
+    border-radius:50%;
+}
+
+.esq{ left:-15px; }
+.dir{ right:-15px; }
+
+h1{
+    color:#cc0066;
+    margin-top:15px;
+}
+
+#contador{
+    color:#99004d;
+    font-size:18px;
+}
+
+/* Carta */
+.carta{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:white;
+    padding:25px;
+    width:80%;
+    max-width:350px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+    display:none;
+    z-index:5;
+}
+
+/* Corações */
+.heart{
+    position:fixed;
+    pointer-events:none;
+    animation: subir linear forwards;
+}
+
+@keyframes subir{
+    0%{
+        transform:translateY(0) scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 COLOQUE A MÚSICA AQUI -->
+<audio autoplay loop id="musica">
+    <source src="COLOQUE_A_MUSICA.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<div class="carrossel">
+
+<button class="seta esq" onclick="trocarImagem(-1)">❮</button>
+
+<!-- 📸 AS 4 IMAGENS FICAM AQUI -->
+<img id="foto" src="foto1.jpg" onclick="abrirCarta()">
+
+<button class="seta dir" onclick="trocarImagem(1)">❯</button>
+
+</div>
+
+<h1>EU TE AMO MUITO</h1>
+<div id="contador"></div>
+
+</div>
+
+<!-- CARTA -->
+<div class="carta" id="carta">
+<h2>💌 Para você</h2>
+<p>
+Você é a melhor parte dos meus dias.  
+Obrigado por estar comigo nessa jornada.  
+Eu te amo infinitamente ❤️
+Você é minha dama, minha inspiração e meu tudo.
+Nunca se esqueça disso!
+Não importa onde a vida nos leve, sempre estarei ao seu lado.
+Com todo o meu amor,
+[Bernardo C Lamas]
+</p>
+
+<button onclick="fecharCarta()">Fechar</button>
+</div>
+
+<script>
+
+/* 📸 IMAGENS — COLOQUE OS NOMES DAS 4 AQUI */
+const imagens = [
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg"
+];
+
+let indice = 0;
+
+function trocarImagem(direcao){
+    indice += direcao;
+
+    if(indice < 0) indice = imagens.length - 1;
+    if(indice >= imagens.length) indice = 0;
+
+    document.getElementById("foto").src = imagens[indice];
+}
+
+/* Carta */
+function abrirCarta(){
+    document.getElementById("carta").style.display="block";
+}
+
+function fecharCarta(){
+    document.getElementById("carta").style.display="none";
+}
+
+/* Contador namoro */
+const inicio = new Date("2025-09-13T00:00:00");
+
+function atualizarContador(){
+    const agora = new Date();
+    const diff = agora - inicio;
+
+    const dias = Math.floor(diff / (1000*60*60*24));
+    const horas = Math.floor(diff / (1000*60*60) % 24);
+    const minutos = Math.floor(diff / (1000*60) % 60);
+
+    document.getElementById("contador").innerHTML =
+    `Juntos há ${dias} dias, ${horas} horas e ${minutos} minutos ❤️`;
+}
+
+setInterval(atualizarContador, 1000);
+atualizarContador();
+
+/* Corações automáticos suaves */
+function criarCoracao(){
+
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = (Math.random()*15 + 15) + "px";
+    heart.style.animationDuration = (Math.random()*4 + 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),8000);
+}
+
+setInterval(criarCoracao, 700);
+
+/* Corações ao toque */
+document.addEventListener("click", function(e){
+
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    heart.style.fontSize="25px";
+    heart.style.animationDuration="3s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),3000);
+});
+
+/* Forçar música após toque */
+document.body.addEventListener("click", ()=>{
+    document.getElementById("musica").play().catch(()=>{});
+},{once:true});
+
+</script>
+
+</body>
+</html>
